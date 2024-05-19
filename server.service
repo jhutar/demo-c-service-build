@@ -1,0 +1,15 @@
+[Unit]
+Description=Simple Web Server
+After=network.target
+
+[Service]
+Type=simple
+#User=server_user  # Replace with the user the service should run under
+WorkingDirectory=/srv/server/  # Replace with the directory containing the binary
+ExecStart=/srv/server/server  # Replace with the path to your binary
+
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

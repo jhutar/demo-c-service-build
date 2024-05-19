@@ -1,0 +1,26 @@
+---
+- hosts: all  # Replace with your server group or hostname
+
+  tasks:
+    - name: Copy server binary to destination
+      copy:
+        src: server  # Assuming server binary is in current directory
+        dest: /srv/server/server  # Replace with actual destination
+        mode: 0755
+
+    - name: Copy server.service file to SystemD directory
+      copy:
+        src: server.service
+        dest: /etc/systemd/system/server.service
+        mode: 0644
+
+    - name: Reload SystemD daemon
+      systemd:
+        name: daemon-reload
+        state: reloaded
+
+    - name: Restart server service
+      systemd:
+        name: server
+        state: restarted
+        enabled: yes  # Enable the service to start automatically on boot
